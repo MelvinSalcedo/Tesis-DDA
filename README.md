@@ -7,18 +7,18 @@ Sistema DDA que aprende y se adapta en línea al estilo de juego del jugador med
 
 **CONTROLES PARA PODER MANIPULAR EL AVATAR.**
 
-w a s d -> movimiento del personaje.
+**W A S D** -> movimiento del personaje.
 
-i j k l -> movimiento de la cámara.
+**I J K L** -> movimiento de la cámara.
 
-h -> ataque débil.
+**H** -> ataque débil.
 
-u -> ataque fuerte.
+**U** -> ataque fuerte.
 
-o -> enfocar al contrincante.
+**O** -> enfocar al contrincante.
 
-space -> rodar o esquivar.
+**SPACE** -> rodar o esquivar.
 
-shift + w a s d -> correr.
+**SHIFT + W A S D** -> correr.
 
-x -> activar escudo.
+**X** -> activar escudo.
