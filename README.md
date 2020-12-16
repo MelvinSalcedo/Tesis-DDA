@@ -7,8 +7,8 @@ Video de los resultados.
 
 Controles para poder manipular el avatar.
 
-w a s d -> movimiento del personaje.
-i j k l -> movimiento de la cámara.
+w a s d -> movimiento del personaje.(<-- two spaces)
+i j k l -> movimiento de la cámara.(<-- two spaces)
 h -> ataque débil.
 u -> ataque fuerte.
 o -> enfocar al contrincante.
