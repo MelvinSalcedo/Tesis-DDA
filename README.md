@@ -1,11 +1,11 @@
 # Tesis-DDA
 Sistema DDA que aprende y se adapta en línea al estilo de juego del jugador mediante el uso de algoritmos genéticos y redes neuronales
 
-Video de los resultados.
+**VIDEO DE LOS RESULTADOS.**
 
 [![Watch the video](https://i.imgur.com/vKb2F1B.png)](https://youtu.be/vt5fpE0bzSY)
 
-Controles para poder manipular el avatar.
+**CONTROLES PARA PODER MANIPULAR EL AVATAR.**
 
 w a s d -> movimiento del personaje.
 
