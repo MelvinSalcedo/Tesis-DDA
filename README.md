@@ -3,7 +3,7 @@ Sistema DDA que aprende y se adapta en línea al estilo de juego del jugador med
 
 **VIDEO DEL SISTEMA DDA.**
 
-[![Watch the video](https://i.imgur.com/vKb2F1B.png)](https://drive.google.com/file/d/1Ym1zsKnjg-zr-TlepK7eetFjS7r22Q-v/view?usp=sharing)
+[![Watch the video](https://github.com/MelvinSalcedo/Tesis-DDA/blob/main/resultado.JPG)](https://drive.google.com/file/d/1Ym1zsKnjg-zr-TlepK7eetFjS7r22Q-v/view?usp=sharing)
 
 **CONTROLES PARA PODER MANIPULAR EL AVATAR.**
 
