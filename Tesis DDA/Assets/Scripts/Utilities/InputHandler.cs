@@ -3,24 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class InputHandler : MonoBehaviour {
+    public Automata_Player ap;
+
     float vertical;
     float horizontal;
     bool runInput;
 
-    bool rb_input;
+    bool ataqueDebil;
     float rt_axis;
-    bool rt_input;
+    bool ataqueFuerte;
     bool lb_input;
     float lt_axis;
     bool lt_input;
     bool lt_inp;
-    bool b_input;
+    bool Esquivar;
     bool a_input;
     bool y_input;
     bool x_input;
 
     bool leftAxis_down;
-    bool righttAxis_down;
+    bool Enfocar;
 
     float b_timer;
     float rt_timer;
@@ -28,6 +30,9 @@ public class InputHandler : MonoBehaviour {
 
     StateManager states;
     CamaraManager camManager;
+
+    private bool lookOnCmaera=false;
+    private bool esquivarOne=false;
     float delta;
     // Start is called before the first frame update
     void Start() {
@@ -40,7 +45,9 @@ public class InputHandler : MonoBehaviour {
 
     private void FixedUpdate() {
         delta = Time.fixedDeltaTime;
-        GetInput();
+       if (ap.enabled == false)
+            GetInput();
+        //Void_Esquivar();
         UpdateStates();
         states.FixedTick(delta);
         camManager.Tick(delta);
@@ -49,9 +56,8 @@ public class InputHandler : MonoBehaviour {
     }
 
     void Update() {
-
+        
         delta = Time.deltaTime;
-        //GetInput();
         states.Tick(delta);
         ResetInputNStates();
     }
@@ -60,7 +66,7 @@ public class InputHandler : MonoBehaviour {
         vertical = Input.GetAxis("Vertical");
         horizontal = Input.GetAxis("Horizontal");
 
-        b_input = Input.GetButton("B");
+        Esquivar = Input.GetButton("Esquivar");
         a_input = Input.GetButton("A");
         y_input = Input.GetButtonDown("Y");
         /*if (Input.GetKeyDown("e")) {
@@ -73,11 +79,11 @@ public class InputHandler : MonoBehaviour {
         x_input = Input.GetButton("X");
 
 
-        rt_input = Input.GetButton("RT");
+        ataqueFuerte = Input.GetButton("ataqueFuerte");
         rt_axis = Input.GetAxis("RT");
 
         if (rt_axis != 0) {
-            rt_input = true;
+            ataqueFuerte = true;
         }
 
         lt_input = Input.GetButton("LT");
@@ -87,12 +93,12 @@ public class InputHandler : MonoBehaviour {
             lt_input = true;
         }
 
-        rb_input = Input.GetButton("RB");
+        ataqueDebil = Input.GetButton("ataqueDebil");
         lb_input = Input.GetButton("LB");
 
-        righttAxis_down = Input.GetButtonUp("L");
+        Enfocar = Input.GetButtonUp("Enfocar");
 
-        if (b_input)
+        if (Esquivar)
             b_timer += delta;
     }
 
@@ -103,25 +109,32 @@ public class InputHandler : MonoBehaviour {
 
         Vector3 v = vertical * camManager.transform.forward;
         Vector3 h = horizontal * camManager.transform.right;
+
         states.moveDir = (v + h).normalized;
+
         float m = Mathf.Abs(horizontal) + Mathf.Abs(vertical);
         states.moveAmount = Mathf.Clamp01(m);
 
         //states.roolInput = b_input;
         if (x_input)
-            b_input = false;
+            Esquivar = false;
 
-        if (b_input && b_timer > 0.5f) {
+        if (Esquivar && b_timer > 0.5f) {
             states.run = (states.moveAmount > 0);
+            
         }
-        if (b_input == false && b_timer > 0 && b_timer < 0.5f) {
+        
+        if (Esquivar == false && b_timer > 0 && b_timer < 0.5f) {
+            Debug.Log("%%%%%%%%%%%%%%%%%%%%%%");
+            esquivarOne = true;
             states.roolInput = true;
+           
         }
 
         states.itemInput = x_input;
-        states.rt = rt_input;
+        states.rt = ataqueFuerte;
         states.lt = lt_input;
-        states.rb = rb_input;
+        states.rb = ataqueDebil;
         states.lb = lb_input;
 
         if (y_input) {
@@ -138,7 +151,7 @@ public class InputHandler : MonoBehaviour {
 
             }
         }
-        if (righttAxis_down) {
+        if (Enfocar) {
             states.lockOn = !states.lockOn;
 
             if (states.lockOnTarget == null) {
@@ -149,12 +162,14 @@ public class InputHandler : MonoBehaviour {
             camManager.lockonTarget = states.lockOnTarget;
             states.lockOnTransform = camManager.lockonTransform;
             camManager.lockon = states.lockOn;
+           
+            lookOnCmaera = true;
             //if(states.lockOnTransform)
         }
     }
 
     void ResetInputNStates() {
-        if (b_input == false)
+        if (Esquivar == false)
             b_timer = 0;
         if (states.roolInput)
             states.roolInput = false;
@@ -162,4 +177,67 @@ public class InputHandler : MonoBehaviour {
             states.run = false;
     }
 
+    public void Void_Enfocar() {
+
+        if (lookOnCmaera == false)
+            Enfocar = true;
+        else {
+            Enfocar = false;
+        }
+        
+    }
+
+    public void Void_Mover(float v,float h) {
+        Void_Enfocar();
+        vertical = v;
+        horizontal =h;
+    }
+
+    public void Void_AtaqueDebil() {
+        ataqueDebil = true;
+        StartCoroutine(time());
+    }
+
+    public void Void_AtaqueFuerte() {
+        ataqueFuerte = true;
+        StartCoroutine(time());
+    }
+
+    public void Void_Esquivar() {
+        b_timer = 0.3f;
+        Esquivar = false;
+    }
+    IEnumerator IE_esquivar() {
+        
+        
+
+        /*int t = 0;
+        while (true) {
+            Esquivar = true;
+            yield return new WaitForEndOfFrame();
+            t += 1;
+            if (esquivarOne == true)
+                break;
+            
+        }*/
+        
+        //yield return new WaitForSeconds(0.05f);
+        yield return null;
+        b_timer = 0.3f;
+        Esquivar = false;
+
+    }
+
+    public void Void_Escudar() {
+        GameObject go = this.gameObject.transform.GetChild(1).gameObject;
+        go.GetComponent<Animator>().SetBool("block", true);
+    }
+
+
+    IEnumerator time() {
+        yield return new WaitForSeconds(0.4f);
+        ataqueFuerte = false;
+        ataqueDebil = false;
+        Esquivar = false;
+    }
 }

@@ -65,6 +65,7 @@
     <Compile Include="Assets\Scripts\Complementos\FadeAnimatios.cs" />
     <Compile Include="Assets\Scripts\Controler\ActionManager.cs" />
     <Compile Include="Assets\Scripts\Controler\AnimtorHook.cs" />
+    <Compile Include="Assets\Scripts\Controler\Automata_Player.cs" />
     <Compile Include="Assets\Scripts\Controler\CamaraManager.cs" />
     <Compile Include="Assets\Scripts\Controler\DamageGenerate.cs" />
     <Compile Include="Assets\Scripts\Controler\DataRecolected.cs" />

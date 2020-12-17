@@ -160,7 +160,7 @@ public class StateManager : MonoBehaviour {
         DetecItemAction();
         DetecActios();
         invetoryManager.curWeapon.weaponModel.SetActive(!usingItem);
-        if (inAction) {
+        if (inAction) {//verifica si alguna mecanica se esta ejecutando
             anim.applyRootMotion = true;
             _actionDelay += delta;
             if (_actionDelay > 0.3f) {
@@ -193,8 +193,10 @@ public class StateManager : MonoBehaviour {
             moveAmount = Mathf.Clamp(moveAmount, 0, 0.45f);
         }
 
-        if (run)
+        if (run) {//Verifica si la teclla correr se esta ejecuntado
+            
             targeSpeed = runSpeed;
+        }
 
         if (onGround)
             rigid.velocity = moveDir * (targeSpeed * moveAmount);
@@ -278,9 +280,9 @@ public class StateManager : MonoBehaviour {
         onGround = OnGround();
         anim.SetBool("onGround", onGround);
 
-        if (Input.GetKeyDown(KeyCode.F)) {
+        /*if (Input.GetKeyDown(KeyCode.F)) {
             anim.SetBool("block", true);
-        }
+        }*/
 
     }
 

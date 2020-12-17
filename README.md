@@ -21,4 +21,4 @@ Sistema DDA que aprende y se adapta en línea al estilo de juego del jugador med
 
 **SHIFT + W A S D** -> correr.
 
-**X** -> activar escudo.
+**F** -> activar escudo.
