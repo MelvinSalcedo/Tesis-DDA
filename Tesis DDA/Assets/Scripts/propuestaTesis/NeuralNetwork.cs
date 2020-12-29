@@ -129,15 +129,12 @@ public class NeuralNetwork{
 
                     float num = BinaryStringToSingle(binaryChain[pos]);
                     pos++;
-                    //Debug.Log(binaryChain[i]);
-                    //num = Mathf.Lerp(-1f, 1f, num);
                     weights[i][j][k]= num;
                     pesosRNN += num.ToString() + " | "; 
                 }
             }
         }
-        //Debug.Log("DF " + pesosRNN);
-        //Debug.Log("feed Forward="+ binaryChain.Length);
+
         //Add inputs to the neuron matrix
         for (int i = 0; i < inputs.Length; i++) {
             neurons[0][i] = inputs[i];
@@ -163,7 +160,6 @@ public class NeuralNetwork{
         return neurons[neurons.Length - 1]; //return output layer
     }
 
-    /*================================================================*/
     // Mutar los pesos de las redes neuronales
     public string[] GetAllWeightNN(){
         string pesosRNN = "";
@@ -181,16 +177,8 @@ public class NeuralNetwork{
                 }
             }
         }
-        //string a= SingleToBinaryString(3.6545645f);
-        //Debug.Log("AF "+ pesosRNN);
-        //float d = BinaryStringToSingle(a);
+
         string[] g = weightTtemporary.ToArray();
-        /*string suma = "";
-        for (int i = 0; i < g.Length; i++) {
-            suma+=g[i]+" ";
-        }*/
-        //Debug.Log("GetAllWeightNN=" + g.Length);
-        //Debug.Log("num pesos " + numCapas+" "+ g.Length);
         return g;
     }
    

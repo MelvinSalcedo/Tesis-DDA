@@ -9,12 +9,9 @@ public class DamageGenerate : MonoBehaviour
     public EnemyStates es;
     public bool enter=false;
 
-    private DataRecolected dataRecolected;
+    string tipoAtaque = "";
 
-    private void Start() {
-        dataRecolected = GameObject.Find("DataRecolected").GetComponent<DataRecolected>();
-    }
-
+    public bool AcertoElAtaque = false;
     private void OnTriggerEnter(Collider other) {
         StateManager eStates = other.transform.GetComponent<StateManager>();
 
@@ -22,13 +19,21 @@ public class DamageGenerate : MonoBehaviour
             return;
 
         if (es.canMove == false && enter==false) {
-            eStates.DoDamage(10);
+           
             enter = true;
             t2 = -1;
+            if (tipoAtaque=="ataqueDevil"){
+                DataRecolected.instancia.Ataque_debilEx += 1;
+                eStates.DoDamage(10);
+            }
+            else if(tipoAtaque == "ataqueFuerte") {
+                DataRecolected.instancia.Ataque_FuerteEx += 1;
+                eStates.DoDamage(20);
+            }
+            tipoAtaque = "";
+            AcertoElAtaque = true;
         }
         StartCoroutine(IE_VerifybollEnter());
-
-        
 
     }
 
@@ -41,29 +46,28 @@ public class DamageGenerate : MonoBehaviour
         
     }
 
-    public void callCourutina() {
-        StartCoroutine(IE_VerifyAttack());
+    public void TipoDeAtaque(string s) {
+        tipoAtaque = s;
     }
 
     IEnumerator IE_VerifyAttack() {
         yield return new WaitForSeconds(0.7f);
         if (t2 == -1) {
             if (t == 0)
-                dataRecolected.Ataque_debilEx += 1;
+                DataRecolected.instancia.Ataque_debilEx += 1;
             if (t == 1)
-                dataRecolected.Ataque_FuerteEx += 1;
+                DataRecolected.instancia.Ataque_FuerteEx += 1;
             if (t == 2)
-                dataRecolected.Ataque_debilEx += 1;
+                DataRecolected.instancia.Ataque_debilEx += 1;
             t2 = 0;
         }
         else {
             if (t == 0)
-                dataRecolected.Ataque_debilFa += 1;
+                DataRecolected.instancia.Ataque_debilFa += 1;
             if (t == 1)
-                dataRecolected.Ataque_FuerteFa += 1;
+                DataRecolected.instancia.Ataque_FuerteFa += 1;
             if (t == 2)
-                dataRecolected.Ataque_debilFa += 1;
-            
+                DataRecolected.instancia.Ataque_debilFa += 1;
         }
         
     }

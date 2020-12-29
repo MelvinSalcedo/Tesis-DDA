@@ -73,7 +73,7 @@ public class DNA {
         string[] chainBinary_s = new string[longitud_cromosomas];
 
 
-        int midpt = longitud_cromosomas / 2; // Random.Range(0, target.Length);
+        int midpt = longitud_cromosomas / 2;
         for (int i = 0; i < longitud_cromosomas; i++) {
             if (i <= midpt)
                 chainBinary_s[i] = partner.gene[i];
@@ -91,37 +91,15 @@ public class DNA {
         dataForFitnessFunctions[6] = 1;
 
         DNA child = new DNA(chainBinary_s, dataForFitnessFunctions);
-        /*for (int i = 0; i < gene.Length; i++) {
-            a += gene[i].ToString() + " ";
-            b += partner.gene[i].ToString() + " ";
-            c += child.gene[i].ToString() + " ";
-        }
-        if (a == b) {
-            Debug.Log("PADRES IGUALES");
-        }
-        else {
-            Debug.Log("a " + a);
-            Debug.Log("b " + b);
-            Debug.Log("c " + c);
-        }*/
-        
       
         return child;
     }
-
 
     public void Mutate() {
 
         float r = Random.Range(0f, 1f);
         
-
-        string antes = "";
-        /*for (int i = 0; i < longitud_cromosomas; i++) {
-            antes += gene[i] + " | ";
-        }
-        Debug.Log ("A = " + antes);*/
         if (r < mutationRate) {
-            Debug.Log("MUTACION");
 
             for (int j = 0; j < longitud_cromosomas; j++) {
 

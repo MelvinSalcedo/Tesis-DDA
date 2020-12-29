@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.AI;
 
@@ -50,7 +51,8 @@ public class EnemyStates : MonoBehaviour {
     private bool isShield;
     private bool trigger_countShield=false;
     private float random;
-    private DataRecolected dataRecolected;
+   // private DataRecolected dataRecolected;
+    private string updateAnimation;
 
     public void Init() {
         health = 100;
@@ -67,10 +69,9 @@ public class EnemyStates : MonoBehaviour {
             a_hook = anim.gameObject.AddComponent<AnimtorHook>();
         a_hook.Init(null, this);
         InitRagDoll();
-        dataRecolected = GameObject.Find("DataRecolected").GetComponent<DataRecolected>();
+        //dataRecolected = GameObject.Find("DataRecolected").GetComponent<DataRecolected>();
         ignoreLayers = ~(1 << 9);
     }
-
 
     void InitRagDoll() {
         Rigidbody[] rigs = GetComponentsInChildren<Rigidbody>();
@@ -105,29 +106,24 @@ public class EnemyStates : MonoBehaviour {
         yield return new WaitForEndOfFrame();
         anim.enabled = false;
         this.enabled = false;
+        DataRecolected.instancia.derrotaaNpcDda += 1;
+        DataRecolected.instancia.asignarCLases();
+        yield return new WaitForSeconds(2f);
+        SceneManager.LoadScene(0);
     }
 
     public void Tick(float d) {
         delta = d;
 
         canMove = anim.GetBool("canMove");
-        //canMove = anim.GetBool(StatickString.onEmty);
         if ((health<35) && rotateToTarget) {
             anim.SetBool("block", true);
             isShield = true;
-            if (trigger_countShield == false) {
-                dataRecolected.EscudarseEx += 1;
-                trigger_countShield = true;
-            }
         }
-        else {
-            //anim.SetBool("block", false);
-            trigger_countShield = false;
-        }
+
         if (rotateToTarget) {
             LookTowardsTarget();
             random = Random.Range(0,1);
-            //if(random<0.3f)
 
         }
         LookSliderTowardTarget();
@@ -151,20 +147,26 @@ public class EnemyStates : MonoBehaviour {
         }
     }
 
+    public void updateStrinAccionRetroceso(string s) {
+        updateAnimation = s;
+    }
+
     public void MoveAnimation() {
-        float square = agent.desiredVelocity.sqrMagnitude;
-        float v = Mathf.Clamp(square, 0,.5f); 
-        anim.SetFloat("vertical", v, 0.2f, delta);
+        //anim.SetBool("lockOn", true);
 
-        /*Vector3 desire = agent.desiredVelocity;
-        Vector3 relative = transform.InverseTransformDirection(desire);
-        float v = relative.z;
-        float h = relative.x;
-        v = Mathf.Clamp(v,-0.5f,.5f);
-        h = Mathf.Clamp(h,-0.5f,.5f);
 
-        anim.SetFloat("horizontal", h, 0.2f, delta);
-        anim.SetFloat("vertical", v, 0.2f, delta);*/
+
+        if (updateAnimation == "retirarse") {
+            anim.SetBool("lockOn", true);
+
+            anim.SetFloat("vertical", -0.8f, 0.2f, delta);
+        }
+        else {
+            anim.SetBool("lockOn", false);
+            float square = agent.desiredVelocity.sqrMagnitude;
+            float v = Mathf.Clamp(square, 0, .5f);
+            anim.SetFloat("vertical", v, 0.2f, delta);
+        }
 
     }
 
@@ -198,6 +200,7 @@ public class EnemyStates : MonoBehaviour {
 
     }
 
+    
     public void DoDamage(float v, float tipe) {
         if (isInvicible)
             return;
@@ -213,11 +216,11 @@ public class EnemyStates : MonoBehaviour {
             //anim.Play("Step_back");
             float rr = Random.Range(0f,1f);
             if (rr < 0.5f) {
-                dataRecolected.EsquivarFa += 1;
+                DataRecolected.instancia.EsquivarFa += 1;
                 health -= v;
             }
             else
-                dataRecolected.EsquivarEx += 1;
+                DataRecolected.instancia.EsquivarEx += 1;
         }
 
         anim.applyRootMotion = true;

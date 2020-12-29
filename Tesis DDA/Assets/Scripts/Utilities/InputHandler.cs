@@ -125,7 +125,7 @@ public class InputHandler : MonoBehaviour {
         }
         
         if (Esquivar == false && b_timer > 0 && b_timer < 0.5f) {
-            Debug.Log("%%%%%%%%%%%%%%%%%%%%%%");
+            ///Debug.Log("%%%%%%%%%%%%%%%%%%%%%%");
             esquivarOne = true;
             states.roolInput = true;
            
@@ -193,6 +193,12 @@ public class InputHandler : MonoBehaviour {
         horizontal =h;
     }
 
+    public void Quieto(float v, float h) {
+        Void_Enfocar();
+        vertical = 0;
+        horizontal = 0;
+    }
+
     public void Void_AtaqueDebil() {
         ataqueDebil = true;
         StartCoroutine(time());
@@ -207,6 +213,7 @@ public class InputHandler : MonoBehaviour {
         b_timer = 0.3f;
         Esquivar = false;
     }
+
     IEnumerator IE_esquivar() {
         
         

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class StateManager : MonoBehaviour {
@@ -25,13 +26,13 @@ public class StateManager : MonoBehaviour {
      * damageDeal_NPC;
      * time
      */
-    public DataRecolected dataRecolected;
     public float damageRecived_player=0;
     public float numHistBloquedPlayer=0;
     public float numHistLostPlayer=0;
     public float damageDealPlayer=0;
     public float damageDeal_NPC = 0;
     public float timeGame = 0;
+    public float timeGame2 = 0;
 
     //public float numEnemy=1;
 
@@ -69,6 +70,13 @@ public class StateManager : MonoBehaviour {
     public bool canMove;
     public bool isTwoHanded;
     public bool usingItem;
+
+    public static int usingShield=0;
+    public static int doesItMove = 0;
+    public static int isAtack = 0;
+    public static int Atacked = 0;
+    public static int isLooking = 0;
+    public static int heRetired = 0;
 
 
 
@@ -268,21 +276,38 @@ public class StateManager : MonoBehaviour {
 
     public void Tick(float d) {
         numHistLostPlayer = 0;//Pendiente
-        numHistBloquedPlayer = dataRecolected.Ataque_debilFa + dataRecolected.Ataque_FuerteFa;
+        numHistBloquedPlayer = DataRecolected.instancia.Ataque_debilFa + DataRecolected.instancia.Ataque_FuerteFa;
         damageRecived_player = 100-health;
         damageDealPlayer = 100-es.health;
         damageDeal_NPC = 100-health;
 
         timeGame += Time.deltaTime;
+        
         Distance = Vector3.Distance(transform.position,es.transform.position);
 
         delta = d;
         onGround = OnGround();
         anim.SetBool("onGround", onGround);
 
-        /*if (Input.GetKeyDown(KeyCode.F)) {
+        if (Input.GetKeyDown(KeyCode.F)) {
             anim.SetBool("block", true);
-        }*/
+        }
+
+
+        if (isAtack == 1)
+            timeGame2 += Time.deltaTime;
+
+        if (timeGame2 <= 10) {
+            Atacked = 1;
+        }
+        else {
+            Atacked = 0;
+            timeGame2 = 0;
+        }
+        if (lockOn == false)
+            isLooking = 0;
+        else
+            isLooking = 1;
 
     }
 
@@ -386,10 +411,18 @@ public class StateManager : MonoBehaviour {
 
         sliderLife.value = (int)health;
 
-        if (health <= 0)
+        if (health <= 0) {
             yoDie.SetActive(true);
+            StartCoroutine(loadScene());
+        }
         //isInvicible = true;
         pass = false;
+    }
+    IEnumerator loadScene() {
+        DataRecolected.instancia.victoriaNpcDda += 1;
+        DataRecolected.instancia.asignarCLases();
+        yield return new WaitForSeconds(2);
+        SceneManager.LoadScene(0);;
     }
 
     public void ResetAllGame() {

@@ -34,7 +34,6 @@ public class population : MonoBehaviour {
     public void AddNewCromosoma(string[] caracteristicasJuego, float[] dataForFitness) {
         DNA populationSet = new DNA(caracteristicasJuego, dataForFitness);
         populationSet.fitnessCal();
-        //print("new cromosoma = "+ populationSet.fitness);
         comportamientoReciente = populationSet;
         BaseDeDatosBestDNA.Add(populationSet);
     }
@@ -54,27 +53,17 @@ public class population : MonoBehaviour {
                 i--;
             }
 
-            /*for (int i = 0; i < BaseDeDatosBestDNA.Count; i++) {
-                print(BaseDeDatosBestDNA[i].fitness);
-            }*/
-
-            //Debug.Log("CHILD " + BaseDeDatosBestDNA.Count);
-            //cruzamiento de los individous selccionados
-
 
             for (int i = 0; i < 1; i++) {
                 int a = Random.Range(0,BaseDeDatosBestDNA.Count);
                 int b=0;
                 while (b == a) {b= Random.Range(0, BaseDeDatosBestDNA.Count); }
                 DNA partnerA = BaseDeDatosBestDNA[a];
-                //DNA partnerB = BaseDeDatosBestDNA[b];
 
                 DNA child = partnerA.crossOverID(comportamientoReciente);
                 child.Mutate();
 
                 pesos=child.gene;
-                //Debug.Log("**************** "+ crossoverPool.Count);
-                //Debug.Log("CHILD ="+ partnerB.gene[0]);
             }
         }
         return pesos;
