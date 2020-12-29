@@ -6,9 +6,9 @@ public class InventoryManager : MonoBehaviour
 {
     public Weapon curWeapon;
 
-    public void Init() {
+   /* public void Init() {
         curWeapon.w_hook.CloseDamageColliders();
-    }
+    }*/
 }
 
 [System.Serializable]
@@ -17,5 +17,5 @@ public class Weapon {
     public List<Action> two_handedActions;
     public GameObject weaponModel;
     public WeaponHook w_hook;
-    
+    public DamageCollider damCol;
 }

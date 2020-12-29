@@ -17,8 +17,6 @@ public class DamageGenerate : MonoBehaviour
 
         if (eStates == null)
             return;
-
-        if (es.canMove == false && enter==false) {
            
             enter = true;
             t2 = -1;
@@ -32,7 +30,7 @@ public class DamageGenerate : MonoBehaviour
             }
             tipoAtaque = "";
             AcertoElAtaque = true;
-        }
+        
         StartCoroutine(IE_VerifybollEnter());
 
     }

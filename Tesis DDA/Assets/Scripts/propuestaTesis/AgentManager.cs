@@ -46,16 +46,30 @@ public class AgentManager : MonoBehaviour {
     }
 
     //Void Update
+    int numEntrenamiento = 100;
+    bool prE = false;
+
     void Update() {
+
+        if (numEntrenamiento <= 100) {
+            AlgoritmoDDA();
+            numEntrenamiento += 1;
+        }
+        else {
+            prE = true;
+            //numEntrenamiento = 0;
+        }
         
-        if (ejecutarAnnAgain == false) {
+
+        if (ejecutarAnnAgain == false && prE==true) {
             // mostramos en que generacion estamos 
-            Debug.Log("_______SALIDAS DEL ENTRENAMIENTO ___ " + GeneracionActual+" ");
+            Debug.Log("_______ENTRENAMIENTO ___ " + GeneracionActual+" ");
             GeneracionActual++;
 
             //ejecutamos el algitmo DDA
             AlgoritmoDDA();
             ejecutarAnnAgain = true;
+            prE = false;
         }
 
     }

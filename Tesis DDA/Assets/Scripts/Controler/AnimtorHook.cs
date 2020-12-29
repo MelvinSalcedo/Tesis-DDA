@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class AnimtorHook : MonoBehaviour {
 
+
+    public GameObject arma;
     Animator anim;
     StateManager states;
     EnemyStates eStates;
@@ -120,4 +122,13 @@ public class AnimtorHook : MonoBehaviour {
         states.invetoryManager.curWeapon.w_hook.CloseDamageColliders();
     }
 
+    public void ActiveColliderWeapon() {
+        if (arma != null)
+            arma.SetActive(true);
+    }
+
+    public void DeactiveColliderWeapon() {
+        if(arma!=null)
+            arma.SetActive(false);
+    }
 }

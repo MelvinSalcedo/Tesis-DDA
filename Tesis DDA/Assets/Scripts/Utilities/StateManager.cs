@@ -71,6 +71,11 @@ public class StateManager : MonoBehaviour {
     public bool isTwoHanded;
     public bool usingItem;
 
+    public static bool canAtack=false;
+    public static bool canAtack2=false;
+
+
+
     public static int usingShield=0;
     public static int doesItMove = 0;
     public static int isAtack = 0;
@@ -119,7 +124,7 @@ public class StateManager : MonoBehaviour {
         rigid.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
 
         invetoryManager = GetComponent<InventoryManager>();
-        invetoryManager.Init();
+        //invetoryManager.Init();
 
         actionManager = GetComponent<ActionManager>();
         actionManager.Init(this);
@@ -167,7 +172,7 @@ public class StateManager : MonoBehaviour {
 
         DetecItemAction();
         DetecActios();
-        invetoryManager.curWeapon.weaponModel.SetActive(!usingItem);
+        //invetoryManager.curWeapon.weaponModel.SetActive(!usingItem);
         if (inAction) {//verifica si alguna mecanica se esta ejecutando
             anim.applyRootMotion = true;
             _actionDelay += delta;
@@ -275,15 +280,27 @@ public class StateManager : MonoBehaviour {
     }
 
     public void Tick(float d) {
+        if (anim.GetBool("gs_oh_attack_1") == false) {
+            canAtack = false;
+        }
+        else
+            canAtack = true;
+
+        if (anim.GetBool("oh_attack_3") == false) {
+            canAtack2 = false;
+        }
+        else
+            canAtack2 = true;
+
         numHistLostPlayer = 0;//Pendiente
         numHistBloquedPlayer = DataRecolected.instancia.Ataque_debilFa + DataRecolected.instancia.Ataque_FuerteFa;
-        damageRecived_player = 100-health;
-        damageDealPlayer = 100-es.health;
-        damageDeal_NPC = 100-health;
+        damageRecived_player = 100 - health;
+        damageDealPlayer = 100 - es.health;
+        damageDeal_NPC = 100 - health;
 
         timeGame += Time.deltaTime;
-        
-        Distance = Vector3.Distance(transform.position,es.transform.position);
+
+        Distance = Vector3.Distance(transform.position, es.transform.position);
 
         delta = d;
         onGround = OnGround();

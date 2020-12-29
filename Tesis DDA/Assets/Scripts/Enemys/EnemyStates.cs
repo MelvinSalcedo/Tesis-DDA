@@ -27,6 +27,7 @@ public class EnemyStates : MonoBehaviour {
     [Header("States")]
     public bool isInvicible;
     public bool canMove;
+
     public bool isDead;
     public bool hasDestination;
     public Vector3 targetDestination;
@@ -116,6 +117,7 @@ public class EnemyStates : MonoBehaviour {
         delta = d;
 
         canMove = anim.GetBool("canMove");
+        
         if ((health<35) && rotateToTarget) {
             anim.SetBool("block", true);
             isShield = true;

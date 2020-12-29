@@ -1110,9 +1110,9 @@ AnimatorController:
     m_SyncedLayerAffectsTiming: 0
     m_Controller: {fileID: 9100000}
   - serializedVersion: 5
-    m_Name: Interactions
-    m_StateMachine: {fileID: 1287986935124657489}
-    m_Mask: {fileID: 31900000, guid: ede88c90d026643479af64b86e178b84, type: 2}
+    m_Name: Override
+    m_StateMachine: {fileID: 7784824661284787924}
+    m_Mask: {fileID: 0}
     m_Motions: []
     m_Behaviours: []
     m_BlendingMode: 0
@@ -1122,9 +1122,9 @@ AnimatorController:
     m_SyncedLayerAffectsTiming: 0
     m_Controller: {fileID: 9100000}
   - serializedVersion: 5
-    m_Name: Override
-    m_StateMachine: {fileID: 7784824661284787924}
-    m_Mask: {fileID: 0}
+    m_Name: Interactions
+    m_StateMachine: {fileID: 1287986935124657489}
+    m_Mask: {fileID: 31900000, guid: ede88c90d026643479af64b86e178b84, type: 2}
     m_Motions: []
     m_Behaviours: []
     m_BlendingMode: 0
