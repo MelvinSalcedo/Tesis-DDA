@@ -57,14 +57,19 @@ public class Automata_Player : MonoBehaviour {
                     StartCoroutine(Esquivar());
                 break;
             case estados.quieto:
-                if (!triggerQuieto) {
+                if (triggerQuieto==false) {
+                    triggerQuieto = true;
                     StartCoroutine(Quieto());
-                    time2 += Time.deltaTime;
+                    
                 }
                 break;
             default:
                 break;
         }
+    }
+    private void Update() {
+        if(triggerQuieto==true)
+            time2 += Time.deltaTime;
     }
 
     IEnumerator Acercarse() {
@@ -215,10 +220,10 @@ public class Automata_Player : MonoBehaviour {
     }
 
     IEnumerator Quieto() {
-        triggerQuieto = true;
+        
         StateManager.doesItMove = 1;
         while (Vector3.Distance(NPC.position, this.transform.position) > 5 ) {
-            if (time2 < 5)
+            if (time2 < 3.6f)
                 inputHandler.Quieto(0, 0);
             else
                 break;

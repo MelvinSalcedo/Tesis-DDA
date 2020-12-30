@@ -165,7 +165,7 @@ public class AiHandler : MonoBehaviour {
 
     }
     IEnumerator ieObservar() {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(3.5f);
         DataRecolected.instancia.ObservarlEx += 1;
         managerQueue = false;
         observarTrigger = false;
@@ -211,7 +211,7 @@ public class AiHandler : MonoBehaviour {
 
             RaycastToTarget();
 
-            if (dis < 2) {
+            if (dis < 6.0f) {
                 states.agent.isStopped = true;
             }
             else {
@@ -240,7 +240,7 @@ public class AiHandler : MonoBehaviour {
 
             RaycastToTarget();
 
-            if (dis < 2) {
+            if (dis < 6.0f) {
                 states.agent.isStopped = true;
             }
             else {
@@ -265,7 +265,7 @@ public class AiHandler : MonoBehaviour {
         //states.anim.SetBool(StaticsString.onEmpty,false);
 
         //states.canMove = false;
-        yield return new WaitForSeconds(1.2f);
+        yield return new WaitForSeconds(1.8f);
         states.agent.isStopped = true;
         //states.rotateToTarget = false;
         //states.agent.enabled = false;
@@ -285,11 +285,16 @@ public class AiHandler : MonoBehaviour {
         damageGnerate.AcertoElAtaque = false;
     }
 
+    bool triggerEsquviar = false;
     void esquivar() {
         float d2 = Vector3.Distance(en_states.thisTransform.position, this.transform.position);
         if (d2 < 4) {
             SolaAccion = "";
-            StartCoroutine(IE_esquivar());
+            if (triggerEsquviar == false) {
+                StartCoroutine(IE_esquivar());
+                triggerEsquviar = true;
+            }
+            
         }
         else {
             managerQueue = false;
@@ -300,7 +305,8 @@ public class AiHandler : MonoBehaviour {
         states.anim.Play("Step_back");
         yield return new WaitForSeconds(1.5f);
         managerQueue = false;
-        yield return null;
+        triggerEsquviar = false;
+        
     }
 
     void ejecutarSecuencuaDeComandos() {
